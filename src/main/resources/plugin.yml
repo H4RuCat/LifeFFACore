@@ -1,0 +1,4 @@
+name: LifeFFACore
+version: '${version}'
+main: lifeffa.org.example.lifeffacore.LifeFFACore
+api-version: 1.15
