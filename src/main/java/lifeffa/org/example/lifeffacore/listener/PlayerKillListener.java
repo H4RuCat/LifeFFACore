@@ -15,9 +15,9 @@ import java.util.*;
 public class PlayerKillListener implements Listener {
 
 
-    public static void actionbar(Player p, Integer kill, Integer death, Integer killStreak) {
+    public static void actionbar(Player p, Integer kill, Integer death, Integer killStreak, Integer remain) {
 
-        p.sendActionBar("§cKill§8: §f" + kill + " §e/ §cDeath§8: §f" + death + " §e/ §cKillStreak§8: §f" + killStreak);
+        p.sendActionBar("§cKill§8: §f" + kill + " §e/ §cDeath§8: §f" + death + " §e/ §cKillStreak§8: §f" + killStreak + " §e/ §c残機§8: §f" + remain);
 
     }
 
@@ -31,7 +31,7 @@ public class PlayerKillListener implements Listener {
 
                 KillData entry = map.computeIfAbsent(p.getUniqueId(), k -> new KillData());
 
-                actionbar(p, entry.kill, entry.death, entry.killStreak);
+                actionbar(p, entry.kill, entry.death, entry.killStreak, entry.remain);
             }
 
         } );
@@ -83,6 +83,7 @@ public class PlayerKillListener implements Listener {
         KillData killedEntry = map.computeIfAbsent(killed.getUniqueId(), k -> new KillData());
         killedEntry.death++;
         killedEntry.killStreak = 0;
+        killedEntry.remain--;
 
         LifeFFACore ffacore = LifeFFACore.getPlugin(LifeFFACore.class);
 
@@ -91,18 +92,21 @@ public class PlayerKillListener implements Listener {
             ffacore.getConfig().set("players." + killer.getUniqueId() + ".kill", killerEntry.kill);
             ffacore.getConfig().set("players." + killer.getUniqueId() + ".death", killerEntry.death);
             ffacore.getConfig().set("players." + killer.getUniqueId() + ".killStreak", killerEntry.killStreak);
+            ffacore.getConfig().set("players." + killed.getUniqueId() + ".points", killerEntry.points);
+            ffacore.getConfig().set("players." + killer.getUniqueId() + ".remain", killerEntry.remain);
 
             ffacore.getConfig().set("players." + killed.getUniqueId() + ".kill", killedEntry.kill);
             ffacore.getConfig().set("players." + killed.getUniqueId() + ".death", killedEntry.death);
             ffacore.getConfig().set("players." + killed.getUniqueId() + ".killStreak", killedEntry.killStreak);
-            ffacore.getConfig().set("players." + killed.getUniqueId() + ".killStreak", killedEntry.points);
+            ffacore.getConfig().set("players." + killed.getUniqueId() + ".points", killedEntry.points);
+            ffacore.getConfig().set("players." + killer.getUniqueId() + ".remain", killedEntry.remain);
 
             ffacore.saveConfig();
 
             int killedNum = killedEntry.kill / killedEntry.death;
 
             killed.sendMessage("§6.oOo--------------------------oOo.");
-            killed.sendMessage("§7K/D§8: §f" + killedNum + "");
+            killed.sendMessage("          §7K/D§8: §f" + killedNum + "");
             killed.sendMessage("§6.oOo--------------------------oOo.");
 
         });
