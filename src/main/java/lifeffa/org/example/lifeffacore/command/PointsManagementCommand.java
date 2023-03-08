@@ -1,42 +1,45 @@
 package lifeffa.org.example.lifeffacore.command;
 
+import lifeffa.org.example.lifeffacore.listener.PlayerKillListener;
+import lifeffa.org.example.lifeffacore.util.KillData;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class PointsManagementCommand implements CommandExecutor {
 
     @Override
-    public boolean onCommand (CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand (@NotNull CommandSender sender,@NotNull Command command,@NotNull String label, String[] args) {
+
+        String prefix = "§8[§aLifeFFACore§8] ";
+
+        if ( !(sender instanceof Player) ) return true;
+        Player player = (Player) sender;
+
+        KillData data = PlayerKillListener.map.computeIfAbsent(Objects.requireNonNull(player).getUniqueId(), k -> new KillData());
 
         if ( args[0].equals("set") ) {
 
-            /*
-            args[1]が数字:
-             true - args[1]にpointsをsetする
-             false - return true;
-            */
+            data.points = Integer.parseInt(args[1]);
+            sender.sendMessage(prefix + "§f現在のポイント量§8 " + data.points);
 
         }
         if ( args[0].equals("add") ) {
 
-            /*
-            args[1]が数字:
-             true - 現在のpoints + args[1]
-             false- return true;
-            */
+            data.points += Integer.parseInt(args[1]);
+            sender.sendMessage(prefix + "§f現在のポイント量§8 " + data.points);
 
         }
         if ( args[0].equals("remove") ) {
 
-            /*
-            args[1]が数字:
-             true - 現在のpoints - args[1]
-             false - return true;
-            */
+            data.points -= Integer.parseInt(args[1]);
+            sender.sendMessage(prefix + "§f現在のポイント量§8 " + data.points);
 
         }
-
         return true;
     }
 }

@@ -1,6 +1,7 @@
 package lifeffa.org.example.lifeffacore.command;
 
 import lifeffa.org.example.lifeffacore.LifeFFACore;
+import lifeffa.org.example.lifeffacore.listener.PlayerKillListener;
 import lifeffa.org.example.lifeffacore.util.KillData;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -8,18 +9,14 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
-import java.util.UUID;
 
 public class LifeFFAJoinCommand implements CommandExecutor {
 
-    private static final Map<UUID, KillData> map = new HashMap<>();
-
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender,@NotNull Command command,@NotNull String label, String[] args) {
 
         String prefix = "§8[§aLifeFFACore§8] ";
 
@@ -33,7 +30,7 @@ public class LifeFFAJoinCommand implements CommandExecutor {
 
         } else {
 
-            KillData joinPlayer = map.computeIfAbsent(Objects.requireNonNull(player).getUniqueId(), k -> new KillData());
+            KillData joinPlayer = PlayerKillListener.map.computeIfAbsent(Objects.requireNonNull(player).getUniqueId(), k -> new KillData());
             Location spawnlocation = Objects.requireNonNull(Bukkit.getWorld("lifeFFA")).getSpawnLocation();
 
             int x = spawnlocation.getBlockX() + ((int) Math.floor(Math.random() * 210) - 105);

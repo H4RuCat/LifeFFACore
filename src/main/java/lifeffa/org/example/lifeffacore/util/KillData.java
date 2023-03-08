@@ -7,11 +7,4 @@ public class KillData {
     public int points;
     public int remain;
 
-    public KillData(int kill, int death, int killStreak) {
-        this.kill = kill;
-        this.death = death;
-        this.killStreak = killStreak;
-    }
-    public KillData(){
-    }
 }

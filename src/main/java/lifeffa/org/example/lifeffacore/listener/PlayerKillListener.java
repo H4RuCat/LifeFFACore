@@ -21,7 +21,7 @@ public class PlayerKillListener implements Listener {
 
     }
 
-    private static final Map<UUID, KillData> map = new HashMap<>();
+    public static final Map<UUID, KillData> map = new HashMap<>();
 
     public static void actionbar() {
 
@@ -53,9 +53,18 @@ public class PlayerKillListener implements Listener {
             int kill = (int) dataMap.get("kill");
             int death = (int) dataMap.get("death");
             int killStreak = (int) dataMap.get("killStreak");
+            int points = (int) dataMap.get("points");
+            int remain = (int) dataMap.get("remain");
             UUID datakey = UUID.fromString(key);
 
-            map.put(datakey, new KillData(kill, death, killStreak));
+            KillData data = new KillData();
+            data.kill = kill;
+            data.death = death;
+            data.killStreak = killStreak;
+            data.points = points;
+            data.remain = remain;
+
+            map.put(datakey, data);
 
         } );
 

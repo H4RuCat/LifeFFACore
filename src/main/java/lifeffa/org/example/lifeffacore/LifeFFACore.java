@@ -3,6 +3,7 @@ package lifeffa.org.example.lifeffacore;
 import lifeffa.org.example.lifeffacore.command.LifeFFAJoinCommand;
 import lifeffa.org.example.lifeffacore.command.PointsConvertCommand;
 import lifeffa.org.example.lifeffacore.command.PointsManagementCommand;
+import lifeffa.org.example.lifeffacore.listener.PlayerJoinCancelListener;
 import lifeffa.org.example.lifeffacore.listener.PlayerKillListener;
 import lifeffa.org.example.lifeffacore.listener.PlayerSpawningListener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -16,21 +17,13 @@ public final class LifeFFACore extends JavaPlugin {
 
         getLogger().info("LifeFFACore起動");
 
-
         getServer().getPluginManager().registerEvents(new PlayerKillListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerSpawningListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerJoinCancelListener(), this);
 
         Objects.requireNonNull(getServer().getPluginCommand("ffajoin")).setExecutor(new LifeFFAJoinCommand());
         Objects.requireNonNull(getServer().getPluginCommand("pointsconvert")).setExecutor(new PointsConvertCommand());
         Objects.requireNonNull(getServer().getPluginCommand("ffapoints")).setExecutor(new PointsManagementCommand());
-
-        /*
-        現状の不具合
-
-        ▸ LifeFFAJoinCommandにて、remainが3にsetされない
-        ▸ Plugin Reload後にpoints, remainが0にresetされる
-
-        */
 
         getServer().getScheduler().runTaskTimer(this, PlayerKillListener::actionbar, 10, 10);
 
