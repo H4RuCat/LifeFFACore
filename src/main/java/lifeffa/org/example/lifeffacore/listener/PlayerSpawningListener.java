@@ -1,9 +1,9 @@
 package lifeffa.org.example.lifeffacore.listener;
 
+import lifeffa.org.example.lifeffacore.LifeFFACore;
 import lifeffa.org.example.lifeffacore.util.KillData;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerRespawnEvent;
@@ -17,7 +17,6 @@ public class PlayerSpawningListener implements Listener {
 
         String prefix = "§8[§aLifeFFACore§8] ";
         KillData death = PlayerKillListener.map.computeIfAbsent(Objects.requireNonNull(e.getPlayer()).getUniqueId(), k -> new KillData());
-        Player player = e.getPlayer();
 
         if ( death.remain >= 1 ) {
 
@@ -38,7 +37,7 @@ public class PlayerSpawningListener implements Listener {
 
             }
 
-            player.teleport(location);
+            Bukkit.getScheduler().runTaskLater(LifeFFACore.getPlugin(LifeFFACore.class), () -> e.getPlayer().teleport(location), 1);
 
         } else {
 
