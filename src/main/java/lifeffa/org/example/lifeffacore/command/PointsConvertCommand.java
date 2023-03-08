@@ -47,7 +47,7 @@ public class PointsConvertCommand implements CommandExecutor {
             ItemMeta itemMeta = itemStack.getItemMeta();
             List<String> itemList = new ArrayList<>();
             itemList.add("§8[§aLifeFFACore§8]");
-            itemList.add("10ポイント分の紙");
+            itemList.add("§710ポイント分の紙");
 
             itemMeta.setDisplayName("§cLifeFFA Points ");
             itemMeta.setLore(itemList);

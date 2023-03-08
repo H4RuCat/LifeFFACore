@@ -15,3 +15,7 @@ commands:
   ffapoints:
     description: "points management"
     permission: lifeffacore.ffapoints
+  killranking:
+    description: "view kill rankings"
+    aliases: kranking
+    permission: lifeffacore.killranking

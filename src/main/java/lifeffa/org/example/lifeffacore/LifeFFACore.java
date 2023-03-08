@@ -1,5 +1,6 @@
 package lifeffa.org.example.lifeffacore;
 
+import lifeffa.org.example.lifeffacore.command.KillRankingCommand;
 import lifeffa.org.example.lifeffacore.command.LifeFFAJoinCommand;
 import lifeffa.org.example.lifeffacore.command.PointsConvertCommand;
 import lifeffa.org.example.lifeffacore.command.PointsManagementCommand;
@@ -24,6 +25,7 @@ public final class LifeFFACore extends JavaPlugin {
         Objects.requireNonNull(getServer().getPluginCommand("ffajoin")).setExecutor(new LifeFFAJoinCommand());
         Objects.requireNonNull(getServer().getPluginCommand("pointsconvert")).setExecutor(new PointsConvertCommand());
         Objects.requireNonNull(getServer().getPluginCommand("ffapoints")).setExecutor(new PointsManagementCommand());
+        Objects.requireNonNull(getServer().getPluginCommand("killranking")).setExecutor(new KillRankingCommand());
 
         getServer().getScheduler().runTaskTimer(this, PlayerKillListener::actionbar, 10, 10);
 
