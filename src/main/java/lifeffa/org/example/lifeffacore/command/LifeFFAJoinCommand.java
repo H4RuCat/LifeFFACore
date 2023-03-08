@@ -1,5 +1,7 @@
 package lifeffa.org.example.lifeffacore.command;
 
+import lifeffa.org.example.lifeffacore.LifeFFACore;
+import lifeffa.org.example.lifeffacore.util.KillData;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -7,9 +9,14 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 
 public class LifeFFAJoinCommand implements CommandExecutor {
+
+    private static final Map<UUID, KillData> map = new HashMap<>();
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -26,6 +33,7 @@ public class LifeFFAJoinCommand implements CommandExecutor {
 
         } else {
 
+            KillData joinPlayer = map.computeIfAbsent(Objects.requireNonNull(player).getUniqueId(), k -> new KillData());
             Location spawnlocation = Objects.requireNonNull(Bukkit.getWorld("lifeFFA")).getSpawnLocation();
 
             int x = spawnlocation.getBlockX() + ((int) Math.floor(Math.random() * 210) - 105);
@@ -43,7 +51,13 @@ public class LifeFFAJoinCommand implements CommandExecutor {
 
             }
 
+            joinPlayer.remain = 3;
             player.teleport(location);
+
+            LifeFFACore ffacore = LifeFFACore.getPlugin(LifeFFACore.class);
+
+            ffacore.getConfig().set("players." + player.getUniqueId() + ".remain", joinPlayer.remain);
+            ffacore.saveConfig();
 
         }
 
