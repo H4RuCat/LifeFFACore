@@ -8,3 +8,10 @@ commands:
     description: "join lifeffa"
     aliases: fjoin
     permission: lifeffacore.ffajoin
+  pointsconvert:
+    description: "convert LifeFFAPoints"
+    aliases: pconvert
+    permission: lifeffacore.pointsconvert
+  ffapoints:
+    description: "points management"
+    permission: lifeffacore.ffapoints

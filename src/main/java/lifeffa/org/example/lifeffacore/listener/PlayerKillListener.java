@@ -76,6 +76,9 @@ public class PlayerKillListener implements Listener {
         KillData killerEntry = map.computeIfAbsent(killer.getUniqueId(), k -> new KillData());
         killerEntry.kill++;
         killerEntry.killStreak++;
+        if ( killerEntry.killStreak <= 4 ) killerEntry.points = killerEntry.points + 10;
+        if ( killerEntry.killStreak == 5 ) killerEntry.points = killerEntry.points + 20;
+        if ( killerEntry.killStreak >= 6 ) killerEntry.points = killerEntry.points + 15;
 
         KillData killedEntry = map.computeIfAbsent(killed.getUniqueId(), k -> new KillData());
         killedEntry.death++;
@@ -92,10 +95,15 @@ public class PlayerKillListener implements Listener {
             ffacore.getConfig().set("players." + killed.getUniqueId() + ".kill", killedEntry.kill);
             ffacore.getConfig().set("players." + killed.getUniqueId() + ".death", killedEntry.death);
             ffacore.getConfig().set("players." + killed.getUniqueId() + ".killStreak", killedEntry.killStreak);
+            ffacore.getConfig().set("players." + killed.getUniqueId() + ".killStreak", killedEntry.points);
 
             ffacore.saveConfig();
 
-            // 死亡時にチャットにK/Dを流す予定。眠いから起きたらやる
+            int killedNum = killedEntry.kill / killedEntry.death;
+
+            killed.sendMessage("§6.oOo--------------------------oOo.");
+            killed.sendMessage("§7K/D§8: §f" + killedNum + "");
+            killed.sendMessage("§6.oOo--------------------------oOo.");
 
         });
 
