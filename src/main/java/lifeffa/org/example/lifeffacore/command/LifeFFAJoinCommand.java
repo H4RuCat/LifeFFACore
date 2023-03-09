@@ -20,6 +20,15 @@ public class LifeFFAJoinCommand implements CommandExecutor {
 
         String prefix = "§8[§aLifeFFACore§8] ";
 
+        /*
+        明日やる事
+        ▸ なんちゃら.ymlで指定されたMYTHIC_TYPEを持つアイテム以外を所持していると違法になるようにし、join出来なくする
+
+        明後日やる事
+        ▸ デイリーミッション作る
+          ミッションの中身思い浮かばなかったら...はい。
+        */
+
         if ( !(sender instanceof Player) ) return true;
         Player player = (Player) sender;
 
