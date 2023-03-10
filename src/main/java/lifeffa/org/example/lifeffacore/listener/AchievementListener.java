@@ -29,14 +29,21 @@ public class AchievementListener implements Listener {
         if ( killedEntry.death == 1000 ) {
             Bukkit.dispatchCommand(killed, "/achievements progress " + killed.getName() + " azisaba:life/ffa/death_1000 1");
         }
+
         if ( killerEntry.kill == 10 ) {
             Bukkit.dispatchCommand(killer, "/achievements progress " + killer.getName() + " azisaba:life/ffa/kill_10 1");
         }
         if ( killerEntry.kill == 100 ) {
-            Bukkit.dispatchCommand(killer, "/achievements progress " + killed.getName() + " azisaba:life/ffa/kill_100 1");
+            Bukkit.dispatchCommand(killer, "/achievements progress " + killer.getName() + " azisaba:life/ffa/kill_100 1");
         }
         if ( killerEntry.kill == 1000 ) {
-            Bukkit.dispatchCommand(killer, "/achievements progress " + killed.getName() + " azisaba:life/ffa/kill_1000 1");
+            Bukkit.dispatchCommand(killer, "/achievements progress " + killer.getName() + " azisaba:life/ffa/kill_1000 1");
+        }
+        if ( killerEntry.killStreak == 5 ) {
+            Bukkit.dispatchCommand(killer, "/achievements progress " + killer.getName() + " azisaba:life/ffa/killstreak_5 1");
+        }
+        if ( killerEntry.killStreak == 10 ) {
+            Bukkit.dispatchCommand(killer, "/achievements progress " + killer.getName() + " azisaba:life/ffa/killstreak_10 1");
         }
     }
 

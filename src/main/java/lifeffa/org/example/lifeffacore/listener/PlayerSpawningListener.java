@@ -15,6 +15,8 @@ public class PlayerSpawningListener implements Listener {
     @EventHandler
     public void onSpawn(PlayerRespawnEvent e) {
 
+        if ( !Objects.requireNonNull(e.getPlayer()).getWorld().getName().equalsIgnoreCase("lifeFFA") ) return;
+
         String prefix = "§8[§aLifeFFACore§8] ";
         KillData death = PlayerKillListener.map.computeIfAbsent(Objects.requireNonNull(e.getPlayer()).getUniqueId(), k -> new KillData());
 
