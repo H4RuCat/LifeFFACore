@@ -4,10 +4,7 @@ import lifeffa.org.example.lifeffacore.command.KillRankingCommand;
 import lifeffa.org.example.lifeffacore.command.LifeFFAJoinCommand;
 import lifeffa.org.example.lifeffacore.command.PointsConvertCommand;
 import lifeffa.org.example.lifeffacore.command.PointsManagementCommand;
-import lifeffa.org.example.lifeffacore.listener.KillLogListener;
-import lifeffa.org.example.lifeffacore.listener.PlayerJoinCancelListener;
-import lifeffa.org.example.lifeffacore.listener.PlayerKillListener;
-import lifeffa.org.example.lifeffacore.listener.PlayerSpawningListener;
+import lifeffa.org.example.lifeffacore.listener.*;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
