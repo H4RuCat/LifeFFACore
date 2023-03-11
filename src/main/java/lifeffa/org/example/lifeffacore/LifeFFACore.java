@@ -1,10 +1,8 @@
 package lifeffa.org.example.lifeffacore;
 
-import lifeffa.org.example.lifeffacore.command.KillRankingCommand;
-import lifeffa.org.example.lifeffacore.command.LifeFFAJoinCommand;
-import lifeffa.org.example.lifeffacore.command.PointsConvertCommand;
-import lifeffa.org.example.lifeffacore.command.PointsManagementCommand;
+import lifeffa.org.example.lifeffacore.command.*;
 import lifeffa.org.example.lifeffacore.listener.*;
+import lifeffa.org.example.lifeffacore.listener.item.TeleportItemListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
@@ -20,11 +18,13 @@ public final class LifeFFACore extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerSpawningListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerJoinCancelListener(), this);
         getServer().getPluginManager().registerEvents(new KillLogListener(), this);
+        getServer().getPluginManager().registerEvents(new TeleportItemListener(), this);
 
         Objects.requireNonNull(getServer().getPluginCommand("ffajoin")).setExecutor(new LifeFFAJoinCommand());
         Objects.requireNonNull(getServer().getPluginCommand("pointsconvert")).setExecutor(new PointsConvertCommand());
         Objects.requireNonNull(getServer().getPluginCommand("ffapoints")).setExecutor(new PointsManagementCommand());
         Objects.requireNonNull(getServer().getPluginCommand("killranking")).setExecutor(new KillRankingCommand());
+        Objects.requireNonNull(getServer().getPluginCommand("ffagetitem")).setExecutor(new ItemGetCommand());
 
         getServer().getScheduler().runTaskTimer(this, PlayerKillListener::actionbar, 10, 10);
 

@@ -16,13 +16,49 @@ import java.util.Objects;
 
 public class LifeFFAJoinCommand implements CommandExecutor {
 
+    public boolean LifeFFACheck() {
+
+        LocalDateTime nowTime = LocalDateTime.now();
+        Integer hour  = nowTime.getHour();
+
+        return !hour.equals(16) && !hour.equals(19);
+    }
+
+    public void LifeFFATeleport(Player player) {
+
+        KillData joinPlayer = PlayerKillListener.map.computeIfAbsent(Objects.requireNonNull(player).getUniqueId(), k -> new KillData());
+        Location spawnlocation = Objects.requireNonNull(Bukkit.getWorld("lifeFFA")).getSpawnLocation();
+
+        int x = spawnlocation.getBlockX() + ((int) Math.floor(Math.random() * 210) - 105);
+        int z = spawnlocation.getBlockZ() + ((int) Math.floor(Math.random() * 210) - 105);
+        Location location = new Location(Bukkit.getWorld("lifeFFA"), x, 255, z);
+
+        while (true) {
+
+            if ( location.getBlock().getType().isAir() ) {
+                location.subtract(0, 1, 0);
+            } else {
+                location.add(0, 1, 0);
+                break;
+            }
+
+        }
+
+        joinPlayer.remain = 3;
+        player.teleport(location);
+
+        LifeFFACore ffacore = LifeFFACore.getPlugin(LifeFFACore.class);
+
+        ffacore.getConfig().set("players." + player.getUniqueId() + ".remain", joinPlayer.remain);
+        ffacore.saveConfig();
+
+    }
+
+
     @Override
     public boolean onCommand(@NotNull CommandSender sender,@NotNull Command command,@NotNull String label, String[] args) {
 
         String prefix = "§8[§aLifeFFACore§8] ";
-
-        LocalDateTime nowTime = LocalDateTime.now();
-        Integer hour  = nowTime.getHour();
 
         /*
         明日やる事
@@ -41,38 +77,14 @@ public class LifeFFAJoinCommand implements CommandExecutor {
             player.sendMessage(prefix + "§cLifeFFAにいるのでTeleport出来ません");
             return true;
 
-        } else if ( !hour.equals(16) && !hour.equals(19) ) {
+        } else if ( LifeFFACheck() ) {
 
             player.sendMessage(prefix + "§c現在開放時間外です\n§6.oOo----開放時間----oOo.\n§716:§700§f-§716:§759 §e| §719:§700§f-§719:§759");
             return true;
 
         } else {
 
-            KillData joinPlayer = PlayerKillListener.map.computeIfAbsent(Objects.requireNonNull(player).getUniqueId(), k -> new KillData());
-            Location spawnlocation = Objects.requireNonNull(Bukkit.getWorld("lifeFFA")).getSpawnLocation();
-
-            int x = spawnlocation.getBlockX() + ((int) Math.floor(Math.random() * 210) - 105);
-            int z = spawnlocation.getBlockZ() + ((int) Math.floor(Math.random() * 210) - 105);
-            Location location = new Location(Bukkit.getWorld("lifeFFA"), x, 255, z);
-
-            while (true) {
-
-                if ( location.getBlock().getType().isAir() ) {
-                    location.subtract(0, 1, 0);
-                } else {
-                    location.add(0, 1, 0);
-                    break;
-                }
-
-            }
-
-            joinPlayer.remain = 3;
-            player.teleport(location);
-
-            LifeFFACore ffacore = LifeFFACore.getPlugin(LifeFFACore.class);
-
-            ffacore.getConfig().set("players." + player.getUniqueId() + ".remain", joinPlayer.remain);
-            ffacore.saveConfig();
+            LifeFFATeleport(player);
 
         }
 

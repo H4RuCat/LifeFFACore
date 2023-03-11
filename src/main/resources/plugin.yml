@@ -19,3 +19,6 @@ commands:
     description: "view kill rankings"
     aliases: kranking
     permission: lifeffacore.killranking
+  ffagetitem:
+    description: "get item"
+    permission: lifeffacore.ffagetitem
