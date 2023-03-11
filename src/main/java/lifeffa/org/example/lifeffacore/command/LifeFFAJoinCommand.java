@@ -11,6 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class LifeFFAJoinCommand implements CommandExecutor {
@@ -19,6 +20,9 @@ public class LifeFFAJoinCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender,@NotNull Command command,@NotNull String label, String[] args) {
 
         String prefix = "§8[§aLifeFFACore§8] ";
+
+        LocalDateTime nowTime = LocalDateTime.now();
+        Integer hour  = nowTime.getHour();
 
         /*
         明日やる事
@@ -35,6 +39,11 @@ public class LifeFFAJoinCommand implements CommandExecutor {
         if ( player.getWorld().getName().equalsIgnoreCase("lifeFFA") ) {
 
             player.sendMessage(prefix + "§cLifeFFAにいるのでTeleport出来ません");
+            return true;
+
+        } else if ( !hour.equals(16) && !hour.equals(19) ) {
+
+            player.sendMessage(prefix + "§c現在開放時間外です\n§6.oOo----開放時間----oOo.\n§716:§700§f-§716:§759 §e| §719:§700§f-§719:§759");
             return true;
 
         } else {
