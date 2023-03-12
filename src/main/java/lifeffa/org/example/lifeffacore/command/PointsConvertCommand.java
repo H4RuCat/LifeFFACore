@@ -1,8 +1,12 @@
 package lifeffa.org.example.lifeffacore.command;
 
+import com.destroystokyo.paper.ParticleBuilder;
 import lifeffa.org.example.lifeffacore.listener.PlayerKillListener;
 import lifeffa.org.example.lifeffacore.util.KillData;
+import lifeffa.org.example.lifeffacore.util.MathUtil;
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -11,12 +15,16 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 
 public class PointsConvertCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender,@NotNull Command command,@NotNull String label, String[] args) {
+
 
         Player player = (Player) sender;
         String prefix = "§8[§aLifeFFACore§8] ";
@@ -41,7 +49,7 @@ public class PointsConvertCommand implements CommandExecutor {
         if ( senderKillData.points >= 20 * args0 ) {
 
             senderKillData.points -= 20 * args0;
-            player.sendMessage(prefix + "§c現在の所持Points量§8: " + senderKillData.points);
+            player.sendMessage(prefix + "§c現在の所持Points量§8:§f " + senderKillData.points);
 
             ItemStack itemStack = new ItemStack(Material.PAPER, args0);
             ItemMeta itemMeta = itemStack.getItemMeta();
@@ -58,8 +66,25 @@ public class PointsConvertCommand implements CommandExecutor {
 
         } else {
 
+            Location point = player.getLocation();
+            Random random = new Random();
+
             player.sendMessage(prefix + "§cPointsが足りません！");
 
+            ParticleBuilder builder = Particle.END_ROD.builder().extra(0);
+
+            for (int i = 0; i < 20000; i++ ) {
+
+                Location sphere  = MathUtil.getSpherePoint(point.toVector() , 3 , Math.toRadians(random.nextInt(360)) , Math.toRadians(random.nextInt(360))).toLocation(player.getWorld());
+                builder.location(sphere).spawn();
+
+            }
+
+            /*
+
+            あしたこれつかってひーるえりあつくれ
+
+            */
         }
 
         return true;
