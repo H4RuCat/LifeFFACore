@@ -84,14 +84,14 @@ public class LifeFFAJoinCommand implements CommandExecutor {
 
         }
 
-//        if ( player.hasPermission("lifecore.admin") ) {
-//
-//            player.sendMessage("§c権限を持っているから処理すっとばしたよ！");
-//
-//            LifeFFATeleport(player);
-//
-//            return true;
-//        }
+        if ( player.hasPermission("lifecore.admin") ) {
+
+            player.sendMessage("§c権限を持っているから処理すっとばしたよ！");
+
+            LifeFFATeleport(player);
+
+            return true;
+        }
 
         if ( player.getWorld().getName().equalsIgnoreCase("lifeFFA") ) {
 
