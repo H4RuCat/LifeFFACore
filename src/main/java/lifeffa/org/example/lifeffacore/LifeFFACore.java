@@ -13,7 +13,6 @@ public final class LifeFFACore extends JavaPlugin {
     public LifeFFACore() {core = this;}
     public static LifeFFACore inst() {return core;}
 
-
     @Override
     public void onEnable() {
 
