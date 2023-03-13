@@ -26,3 +26,7 @@ commands:
     aliases: fcp
     description: "check all players in a lifeFFA"
     permission: lifeffacore.ggacheckplayers
+  dailymission:
+    aliases: daily
+    description: "check dailymission"
+    permission: lifeffacore.dailymission

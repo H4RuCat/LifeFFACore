@@ -9,6 +9,11 @@ import java.util.Objects;
 
 public final class LifeFFACore extends JavaPlugin {
 
+    private static LifeFFACore core;
+    public LifeFFACore() {core = this;}
+    public static LifeFFACore inst() {return core;}
+
+
     @Override
     public void onEnable() {
 
@@ -19,6 +24,8 @@ public final class LifeFFACore extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerJoinCancelListener(), this);
         getServer().getPluginManager().registerEvents(new KillLogListener(), this);
         getServer().getPluginManager().registerEvents(new TeleportItemListener(), this);
+        getServer().getPluginManager().registerEvents(new DailyMissionListener(), this);
+        getServer().getPluginManager().registerEvents(new HealAreaListener(), this);
 
         Objects.requireNonNull(getServer().getPluginCommand("ffajoin")).setExecutor(new LifeFFAJoinCommand());
         Objects.requireNonNull(getServer().getPluginCommand("pointsconvert")).setExecutor(new PointsConvertCommand());
@@ -26,8 +33,10 @@ public final class LifeFFACore extends JavaPlugin {
         Objects.requireNonNull(getServer().getPluginCommand("killranking")).setExecutor(new KillRankingCommand());
         Objects.requireNonNull(getServer().getPluginCommand("ffagetitem")).setExecutor(new ItemGetCommand());
         Objects.requireNonNull(getServer().getPluginCommand("checkplayers")).setExecutor(new PlayerCheckCommand());
+        Objects.requireNonNull(getServer().getPluginCommand("dailymission")).setExecutor(new DailyMissionCommand());
 
         getServer().getScheduler().runTaskTimer(this, PlayerKillListener::actionbar, 10, 10);
+        getServer().getScheduler().runTaskTimer(this, HealAreaListener::healAreaLottery, 0, 10);
 
         PlayerKillListener.readConfig();
     }

@@ -1,12 +1,8 @@
 package lifeffa.org.example.lifeffacore.command;
 
-import com.destroystokyo.paper.ParticleBuilder;
 import lifeffa.org.example.lifeffacore.listener.PlayerKillListener;
 import lifeffa.org.example.lifeffacore.util.KillData;
-import lifeffa.org.example.lifeffacore.util.MathUtil;
-import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Particle;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -17,8 +13,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-
 
 public class PointsConvertCommand implements CommandExecutor {
 
@@ -66,25 +60,8 @@ public class PointsConvertCommand implements CommandExecutor {
 
         } else {
 
-            Location point = player.getLocation();
-            Random random = new Random();
-
             player.sendMessage(prefix + "§cPointsが足りません！");
 
-            ParticleBuilder builder = Particle.END_ROD.builder().extra(0);
-
-            for (int i = 0; i < 20000; i++ ) {
-
-                Location sphere  = MathUtil.getSpherePoint(point.toVector() , 3 , Math.toRadians(random.nextInt(360)) , Math.toRadians(random.nextInt(360))).toLocation(player.getWorld());
-                builder.location(sphere).spawn();
-
-            }
-
-            /*
-
-            あしたこれつかってひーるえりあつくれ
-
-            */
         }
 
         return true;

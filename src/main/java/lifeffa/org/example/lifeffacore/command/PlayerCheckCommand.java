@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class PlayerCheckCommand implements CommandExecutor {
 
-    public static int checkPlayer() {
+    public static int checkPlayerNum() {
 
         int people = 0;
 
@@ -24,6 +24,18 @@ public class PlayerCheckCommand implements CommandExecutor {
         }
         return people;
     }
+    public static void checkPlayers() {
+
+        for (Player p: Bukkit.getOnlinePlayers() ) {
+
+            if ( p.getWorld().getName().equals("lifeFFA") ) {
+
+                p.sendMessage("§6oOo---------------oOo");
+                p.sendMessage("§d     Heal Areaが出現した");
+
+            }
+        }
+    }
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -31,7 +43,7 @@ public class PlayerCheckCommand implements CommandExecutor {
         Player player = (Player) sender;
         String prefix = "§8[§aLifeFFACore§8] ";
 
-        player.sendMessage( prefix + "§f現在LifeFFA内に §e" + checkPlayer() + "§b人 §fのプレイヤーがいます");
+        player.sendMessage( prefix + "§f現在LifeFFA内に §e" + checkPlayerNum() + "§b人 §fのプレイヤーがいます");
 
         return true;
     }
