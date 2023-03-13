@@ -30,8 +30,20 @@ public class PlayerCheckCommand implements CommandExecutor {
 
             if ( p.getWorld().getName().equals("lifeFFA") ) {
 
-                p.sendMessage("§6oOo---------------oOo");
-                p.sendMessage("§d     Heal Areaが出現した");
+                p.sendMessage("§6oOo--------------------oOo");
+                p.sendMessage("§d       Heal Areaが出現した");
+
+            }
+        }
+    }
+    public static void randomCrateMessage() {
+
+        for (Player p: Bukkit.getOnlinePlayers() ) {
+
+            if ( p.getWorld().getName().equals("lifeFFA") ) {
+
+                p.sendMessage("§6oOo--------------------oOo");
+                p.sendMessage("§d     Random crateが出現した");
 
             }
         }

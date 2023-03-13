@@ -68,7 +68,7 @@ public class HealAreaListener implements Listener {
 
     public static void healAreaLottery() {
 
-        int x = random.nextInt(1000);
+        int x = random.nextInt(350);
 
         if ( x == 1 ) {
 
