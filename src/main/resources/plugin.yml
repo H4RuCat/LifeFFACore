@@ -22,3 +22,7 @@ commands:
   ffagetitem:
     description: "get item"
     permission: lifeffacore.ffagetitem
+  checkplayers:
+    aliases: fcp
+    description: "check all players in a lifeFFA"
+    permission: lifeffacore.ggacheckplayers
