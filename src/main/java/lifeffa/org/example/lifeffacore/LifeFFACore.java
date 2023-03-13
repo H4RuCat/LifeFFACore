@@ -35,6 +35,7 @@ public final class LifeFFACore extends JavaPlugin {
         Objects.requireNonNull(getServer().getPluginCommand("killranking")).setExecutor(new KillRankingCommand());
         Objects.requireNonNull(getServer().getPluginCommand("ffagetitem")).setExecutor(new ItemGetCommand());
         Objects.requireNonNull(getServer().getPluginCommand("checkplayers")).setExecutor(new PlayerCheckCommand());
+        Objects.requireNonNull(getServer().getPluginCommand("ffacheckitem")).setExecutor(new ItemCheckCommand());
 //        Objects.requireNonNull(getServer().getPluginCommand("dailymission")).setExecutor(new DailyMissionCommand());
 
         getServer().getScheduler().runTaskTimer(this, PlayerKillListener::actionbar, 10, 10);

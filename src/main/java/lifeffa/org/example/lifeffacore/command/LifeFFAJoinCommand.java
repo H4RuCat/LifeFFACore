@@ -28,11 +28,12 @@ public class LifeFFAJoinCommand implements CommandExecutor {
         LocalDateTime nowTime = LocalDateTime.now();
         Integer hour  = nowTime.getHour();
 
-        return !hour.equals(8) && !hour.equals(19);
+        return !hour.equals(16) && !hour.equals(19);
     }
 
     public void LifeFFATeleport(Player player) {
 
+        String prefix = "§8[§aLifeFFACore§8] ";
         KillData joinPlayer = PlayerKillListener.map.computeIfAbsent(Objects.requireNonNull(player).getUniqueId(), k -> new KillData());
         Location spawnlocation = Objects.requireNonNull(Bukkit.getWorld("lifeFFA")).getSpawnLocation();
 
@@ -53,6 +54,7 @@ public class LifeFFAJoinCommand implements CommandExecutor {
 
         joinPlayer.remain = 3;
         player.teleport(location);
+        player.sendMessage(prefix + "§aLifeFFAにteleportしました");
 
         LifeFFACore ffacore = LifeFFACore.getPlugin(LifeFFACore.class);
 
@@ -108,54 +110,18 @@ public class LifeFFAJoinCommand implements CommandExecutor {
             return true;
 
         } else if (new InventoryCheckUtil().invCheck(name)) {
-            for (int i = 0;i < 360; i++) {
 
-                for(int y = 24; y < 70; ++y) {
+            LifeFFATeleport(player);
 
-                    World world = Bukkit.getWorld("lifeFFA");
-
-                    int in = (int)(Math.random() * 128.0);
-
-                    Location loc = new Location(world, 70.0, 31.0, -188.0);
-
-                    int x = (int)(loc.getX() + Math.sin(i) * (double)in);
-                    int z = (int)(loc.getZ() + Math.cos(i) * (double)in);
-
-                    Location location = new Location(world, (double)x + 0.5, y, (double)z + 0.5);
-
-                    if (location.getBlock().getType() == Material.GRASS_BLOCK) {
-
-                        Block block = location.getBlock().getRelative(BlockFace.UP);
-                        Block block1 = block.getRelative(BlockFace.UP);
-
-                        if (block.getType() == Material.AIR && block1.getType() == Material.AIR) {
-
-                            Location finalLoc = new Location(world, location.getX(), location.getY() + 1.0, location.getZ());
-
-                            name.teleport(finalLoc);
-                            name.sendMessage(ChatColor.GREEN + "LifeFFAにテレポートしました。");
-
-                            life.put(name, LifeFFACore.inst().getConfig().getInt("PlayerLife", 2));
-
-                            return true;
-
-                        }
-
-                    }
-
-                }
-
-            }
         } else {
 
-            name.sendMessage(ChatColor.RED + "LifeFFAには指定アイテム以外のアイテムは持ち込めません。/pilで持ち込み可能なアイテムを確認できます。");
+            name.sendMessage("§7LifeFFAには指定アイテム以外のアイテムは持ち込めません。\n§n/fci§7で持ち込み可能なアイテムを確認できます");
             return true;
 
         }
 
-        LifeFFATeleport(player);
-
         return true;
+
     }
 
 }

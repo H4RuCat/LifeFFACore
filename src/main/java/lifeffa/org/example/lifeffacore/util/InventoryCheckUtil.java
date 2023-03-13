@@ -48,25 +48,44 @@ public class InventoryCheckUtil {
     }
 
     public boolean mmCheck(@NotNull Player player) {
+
+        String prefix = "§8[§aLifeFFACore§8] ";
         check:for (ItemStack itemStack : player.getInventory().getContents()) {
-            if (itemStack == null) continue;
+
+            if ( itemStack == null ) continue;
+
             CompoundTag tag = MythicMobs.inst().getVolatileCodeHandler().getItemHandler().getNBTData(itemStack);
+
             if (tag != null && tag.containsKey("MYTHIC_TYPE")) {
+
                 for (String string : info.getStringList("Item")) {
+
                     if (tag.getString("MYTHIC_TYPE").equals(string)) {
+
                         continue check;
+
                     }
+
                 }
+
                 for (String string : info.getStringList("Armor")) {
-                    if (tag.getString("MYTHIC_TYPE").equals(string)) {
+
+                    if ( tag.getString("MYTHIC_TYPE").equals(string) ) {
                         continue check;
+
                     }
+
                 }
             }
-            player.sendMessage(itemStack.getItemMeta().getDisplayName() + ChatColor.RESET + "はlifeFFAワールド内では使用できません。");
+
+            player.sendMessage(prefix + itemStack.getItemMeta().getDisplayName() + "§fはlifeFFAワールド内では使用できません");
+
             return false;
+
         }
+
         return true;
+
     }
 
     public boolean isHead(@NotNull Player player) {

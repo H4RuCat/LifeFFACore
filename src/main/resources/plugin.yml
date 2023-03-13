@@ -30,3 +30,10 @@ commands:
     aliases: daily
     description: "check dailymission"
     permission: lifeffacore.dailymission
+  ffacheckitem:
+    aliases: fci
+    description: "check item MYTHIC_TYPE"
+    permission: lifeffacore.ffacheckitem
+
+
+
