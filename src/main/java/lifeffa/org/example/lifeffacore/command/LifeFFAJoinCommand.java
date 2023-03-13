@@ -2,26 +2,33 @@ package lifeffa.org.example.lifeffacore.command;
 
 import lifeffa.org.example.lifeffacore.LifeFFACore;
 import lifeffa.org.example.lifeffacore.listener.PlayerKillListener;
+import lifeffa.org.example.lifeffacore.util.InventoryCheckUtil;
 import lifeffa.org.example.lifeffacore.util.KillData;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
+import org.bukkit.*;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class LifeFFAJoinCommand implements CommandExecutor {
+
+    static Map<Player, Integer> life = new HashMap<>();
 
     public boolean LifeFFACheck() {
 
         LocalDateTime nowTime = LocalDateTime.now();
         Integer hour  = nowTime.getHour();
 
-        return !hour.equals(16) && !hour.equals(19);
+        return !hour.equals(8) && !hour.equals(19);
     }
 
     public void LifeFFATeleport(Player player) {
@@ -59,18 +66,36 @@ public class LifeFFAJoinCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender,@NotNull Command command,@NotNull String label, String[] args) {
 
         String prefix = "§8[§aLifeFFACore§8] ";
+        String playerName = args[0];
 
         if ( !(sender instanceof Player) ) return true;
+
         Player player = (Player) sender;
+        Player name;
 
-        if ( player.hasPermission("lifecore.admin") ) {
+        try {
+            name = Bukkit.getPlayer(playerName);
+            if ( name == null ) {
 
-            player.sendMessage("§c権限を持っているから処理すっとばしたよ！");
+                player.sendMessage(ChatColor.RED + "そのプレイヤーは存在していません。");
+                return true;
 
-            LifeFFATeleport(player);
+            }
+        } catch (Exception e) {
 
+            player.sendMessage(ChatColor.RED + "そのプレイヤーは存在していません。");
             return true;
+
         }
+
+//        if ( player.hasPermission("lifecore.admin") ) {
+//
+//            player.sendMessage("§c権限を持っているから処理すっとばしたよ！");
+//
+//            LifeFFATeleport(player);
+//
+//            return true;
+//        }
 
         if ( player.getWorld().getName().equalsIgnoreCase("lifeFFA") ) {
 
@@ -82,11 +107,53 @@ public class LifeFFAJoinCommand implements CommandExecutor {
             player.sendMessage(prefix + "§c現在開放時間外です\n§6.oOo----開放時間----oOo.\n§716:§700§f-§716:§759 §e| §719:§700§f-§719:§759");
             return true;
 
+        } else if (new InventoryCheckUtil().invCheck(name)) {
+            for (int i = 0;i < 360; i++) {
+
+                for(int y = 24; y < 70; ++y) {
+
+                    World world = Bukkit.getWorld("lifeFFA");
+
+                    int in = (int)(Math.random() * 128.0);
+
+                    Location loc = new Location(world, 70.0, 31.0, -188.0);
+
+                    int x = (int)(loc.getX() + Math.sin(i) * (double)in);
+                    int z = (int)(loc.getZ() + Math.cos(i) * (double)in);
+
+                    Location location = new Location(world, (double)x + 0.5, y, (double)z + 0.5);
+
+                    if (location.getBlock().getType() == Material.GRASS_BLOCK) {
+
+                        Block block = location.getBlock().getRelative(BlockFace.UP);
+                        Block block1 = block.getRelative(BlockFace.UP);
+
+                        if (block.getType() == Material.AIR && block1.getType() == Material.AIR) {
+
+                            Location finalLoc = new Location(world, location.getX(), location.getY() + 1.0, location.getZ());
+
+                            name.teleport(finalLoc);
+                            name.sendMessage(ChatColor.GREEN + "LifeFFAにテレポートしました。");
+
+                            life.put(name, LifeFFACore.inst().getConfig().getInt("PlayerLife", 2));
+
+                            return true;
+
+                        }
+
+                    }
+
+                }
+
+            }
         } else {
 
-            LifeFFATeleport(player);
+            name.sendMessage(ChatColor.RED + "LifeFFAには指定アイテム以外のアイテムは持ち込めません。/pilで持ち込み可能なアイテムを確認できます。");
+            return true;
 
         }
+
+        LifeFFATeleport(player);
 
         return true;
     }

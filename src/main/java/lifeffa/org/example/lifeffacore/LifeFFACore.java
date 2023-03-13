@@ -18,6 +18,8 @@ public final class LifeFFACore extends JavaPlugin {
 
         getLogger().info("LifeFFACore起動");
 
+        saveDefaultConfig();
+
         getServer().getPluginManager().registerEvents(new PlayerKillListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerSpawningListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerJoinCancelListener(), this);
