@@ -5,8 +5,6 @@ import lifeffa.org.example.lifeffacore.listener.PlayerKillListener;
 import lifeffa.org.example.lifeffacore.util.InventoryCheckUtil;
 import lifeffa.org.example.lifeffacore.util.KillData;
 import org.bukkit.*;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -15,13 +13,9 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 public class LifeFFAJoinCommand implements CommandExecutor {
-
-    static Map<Player, Integer> life = new HashMap<>();
 
     public boolean LifeFFACheck() {
 
