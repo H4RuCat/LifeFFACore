@@ -25,6 +25,7 @@ public final class LifeFFACore extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new TeleportItemListener(), this);
         getServer().getPluginManager().registerEvents(new DailyMissionListener(), this);
         getServer().getPluginManager().registerEvents(new HealAreaListener(), this);
+        getServer().getPluginManager().registerEvents(new RandomSpawnCrateListener(), this);
 
         Objects.requireNonNull(getServer().getPluginCommand("ffajoin")).setExecutor(new LifeFFAJoinCommand());
         Objects.requireNonNull(getServer().getPluginCommand("pointsconvert")).setExecutor(new PointsConvertCommand());
@@ -36,6 +37,7 @@ public final class LifeFFACore extends JavaPlugin {
 
         getServer().getScheduler().runTaskTimer(this, PlayerKillListener::actionbar, 10, 10);
         getServer().getScheduler().runTaskTimer(this, HealAreaListener::healAreaLottery, 0, 10);
+        getServer().getScheduler().runTaskTimer(this, RandomSpawnCrateListener::summonCrate, 0, 20);
 
         PlayerKillListener.readConfig();
     }
