@@ -18,6 +18,7 @@ public class KillRankingCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 
         Player player = (Player) sender;
+
         List<Map.Entry<UUID, KillData>> list = PlayerKillListener.map.entrySet().stream().sorted(Comparator.comparing(t -> t.getValue().kill) ).collect(Collectors.toList());
         Collections.reverse(list);
 

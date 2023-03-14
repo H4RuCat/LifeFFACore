@@ -101,14 +101,14 @@ public class PlayerKillListener implements Listener {
             ffacore.getConfig().set("players." + killer.getUniqueId() + ".kill", killerEntry.kill);
             ffacore.getConfig().set("players." + killer.getUniqueId() + ".death", killerEntry.death);
             ffacore.getConfig().set("players." + killer.getUniqueId() + ".killStreak", killerEntry.killStreak);
-            ffacore.getConfig().set("players." + killed.getUniqueId() + ".points", killerEntry.points);
+            ffacore.getConfig().set("players." + killer.getUniqueId() + ".points", killerEntry.points);
             ffacore.getConfig().set("players." + killer.getUniqueId() + ".remain", killerEntry.remain);
 
             ffacore.getConfig().set("players." + killed.getUniqueId() + ".kill", killedEntry.kill);
             ffacore.getConfig().set("players." + killed.getUniqueId() + ".death", killedEntry.death);
             ffacore.getConfig().set("players." + killed.getUniqueId() + ".killStreak", killedEntry.killStreak);
             ffacore.getConfig().set("players." + killed.getUniqueId() + ".points", killedEntry.points);
-            ffacore.getConfig().set("players." + killer.getUniqueId() + ".remain", killedEntry.remain);
+            ffacore.getConfig().set("players." + killed.getUniqueId() + ".remain", killedEntry.remain);
 
             ffacore.saveConfig();
 

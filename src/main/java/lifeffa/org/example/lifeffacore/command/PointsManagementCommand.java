@@ -15,11 +15,10 @@ public class PointsManagementCommand implements CommandExecutor {
     @Override
     public boolean onCommand (@NotNull CommandSender sender,@NotNull Command command,@NotNull String label, String[] args) {
 
-        String prefix = "§8[§aLifeFFACore§8] ";
-
         if ( !(sender instanceof Player) ) return true;
-        Player player = (Player) sender;
 
+        String prefix = "§8[§aLifeFFACore§8] ";
+        Player player = (Player) sender;
         KillData data = PlayerKillListener.map.computeIfAbsent(Objects.requireNonNull(player).getUniqueId(), k -> new KillData());
 
         if ( args[0].equals("set") ) {
