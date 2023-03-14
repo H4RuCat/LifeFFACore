@@ -32,7 +32,7 @@ commands:
     permission: lifeffacore.dailymission
   ffacheckitem:
     aliases: fci
-    description: "check item MYTHIC_TYPE"
+    description: "check the MYTHIC_TYPE of the item"
     permission: lifeffacore.ffacheckitem
 
 
