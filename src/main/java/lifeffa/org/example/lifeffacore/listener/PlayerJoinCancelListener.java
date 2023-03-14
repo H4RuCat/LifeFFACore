@@ -16,7 +16,7 @@ public class PlayerJoinCancelListener implements Listener {
             String prefix = "§8[§aLifeFFACore§8] ";
 
             e.getPlayer().sendMessage(prefix + "§flifeFFA会場内にいた為、spawnしました");
-            Bukkit.getScheduler().runTaskLater(LifeFFACore.getPlugin(LifeFFACore.class), () -> Bukkit.dispatchCommand(e.getPlayer(), "/spawn"), 1);
+            Bukkit.getScheduler().runTaskLater(LifeFFACore.getPlugin(LifeFFACore.class), () -> Bukkit.dispatchCommand(e.getPlayer(), "spawn"), 3);
 
         }
     }
