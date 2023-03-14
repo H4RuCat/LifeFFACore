@@ -44,6 +44,7 @@ public class PlayerSpawningListener implements Listener {
         } else {
 
             e.getPlayer().sendMessage(prefix + "§c残機が無くなりました");
+            Bukkit.getScheduler().runTaskLater(LifeFFACore.getPlugin(LifeFFACore.class), () -> Bukkit.dispatchCommand(e.getPlayer(), "spawn"), 5);
 
         }
 

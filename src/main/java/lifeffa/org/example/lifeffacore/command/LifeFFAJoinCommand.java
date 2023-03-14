@@ -22,7 +22,7 @@ public class LifeFFAJoinCommand implements CommandExecutor {
         LocalDateTime nowTime = LocalDateTime.now();
         Integer hour  = nowTime.getHour();
 
-        return !hour.equals(16) && !hour.equals(19);
+        return !hour.equals(16) && !hour.equals(18);
     }
 
     public void LifeFFATeleport(Player player) {
