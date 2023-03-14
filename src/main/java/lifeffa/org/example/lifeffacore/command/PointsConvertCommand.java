@@ -1,5 +1,6 @@
 package lifeffa.org.example.lifeffacore.command;
 
+import lifeffa.org.example.lifeffacore.LifeFFACore;
 import lifeffa.org.example.lifeffacore.listener.PlayerKillListener;
 import lifeffa.org.example.lifeffacore.util.KillData;
 import org.bukkit.Material;
@@ -11,10 +12,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class PointsConvertCommand implements CommandExecutor {
+
+    public static final Map<UUID, KillData> map = new HashMap<>();
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender,@NotNull Command command,@NotNull String label, String[] args) {
@@ -42,7 +44,9 @@ public class PointsConvertCommand implements CommandExecutor {
 
         if ( senderKillData.points >= 20 * args0 ) {
 
+            LifeFFACore ffacore = LifeFFACore.getPlugin(LifeFFACore.class);
             senderKillData.points -= 20 * args0;
+            KillData playerEntry = map.computeIfAbsent(player.getUniqueId(), k -> new KillData());
             player.sendMessage(prefix + "§c現在の所持Points量§8:§f " + senderKillData.points);
 
             ItemStack itemStack = new ItemStack(Material.PAPER, args0);
@@ -53,10 +57,14 @@ public class PointsConvertCommand implements CommandExecutor {
 
             itemMeta.setDisplayName("§cLifeFFA Points ");
             itemMeta.setLore(itemList);
-
             itemStack.setItemMeta(itemMeta);
 
             player.getInventory().addItem(itemStack);
+
+
+            ffacore.getConfig().set("players." + player.getUniqueId() + ".points", playerEntry.points);
+
+            ffacore.saveConfig();
 
         } else {
 
