@@ -47,6 +47,7 @@ public class LifeFFAJoinCommand implements CommandExecutor {
         }
 
         joinPlayer.remain = 3;
+
         player.teleport(location);
         player.sendMessage(prefix + "§aLifeFFAにteleportしました");
 
