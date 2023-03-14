@@ -16,7 +16,7 @@ public class TeleportItem {
         ItemStack bookStack = new ItemStack(Material.BOOK);
         ItemMeta bookMeta = bookStack.getItemMeta();
 
-        bookMeta.setDisplayName("§cてれぽーとあいてむ");
+        bookMeta.setDisplayName("§clifeFFA Teleport Item");
         List<String> bookList = new ArrayList<>();
         bookList.add("§8[§aLifeFFACore§8]");
         bookList.add("§7開放時間じゃないと使えない");
