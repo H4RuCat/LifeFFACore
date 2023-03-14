@@ -34,6 +34,9 @@ commands:
     aliases: fci
     description: "check the MYTHIC_TYPE of the item"
     permission: lifeffacore.ffacheckitem
-
+  checkpoints:
+    aliases: checkp
+    description: "check points"
+    permission: lifeffacore.checkpoints
 
 
