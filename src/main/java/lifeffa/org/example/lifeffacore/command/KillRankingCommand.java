@@ -32,7 +32,6 @@ public class KillRankingCommand implements CommandExecutor {
             player.sendMessage((i + 1) + "§f位§8: §e" + name + " §8- §f" + entry.getValue().kill + "§f Kill");
 
         }
-
         return true;
     }
 }

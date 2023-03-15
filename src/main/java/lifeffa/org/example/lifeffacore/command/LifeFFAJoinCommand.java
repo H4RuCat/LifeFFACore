@@ -22,7 +22,8 @@ public class LifeFFAJoinCommand implements CommandExecutor {
         LocalDateTime nowTime = LocalDateTime.now();
         Integer hour  = nowTime.getHour();
 
-        return !hour.equals(16) && !hour.equals(18);
+        return !hour.equals(16) && !hour.equals(19);
+
     }
 
     public void LifeFFATeleport(Player player) {
@@ -38,10 +39,14 @@ public class LifeFFAJoinCommand implements CommandExecutor {
         while (true) {
 
             if ( location.getBlock().getType().isAir() ) {
+
                 location.subtract(0, 1, 0);
+
             } else {
+
                 location.add(0, 1, 0);
                 break;
+
             }
 
         }
@@ -79,10 +84,8 @@ public class LifeFFAJoinCommand implements CommandExecutor {
 
             }
         } catch (Exception e) {
-
             player.sendMessage(ChatColor.RED + "そのプレイヤーは存在していません。");
             return true;
-
         }
 
         if ( player.hasPermission("lifecore.admin") ) {
@@ -90,8 +93,8 @@ public class LifeFFAJoinCommand implements CommandExecutor {
             player.sendMessage("§c権限を持っているから処理すっとばしたよ！");
 
             LifeFFATeleport(player);
-
             return true;
+
         }
 
         if ( player.getWorld().getName().equalsIgnoreCase("lifeFFA") ) {

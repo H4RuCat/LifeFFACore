@@ -56,7 +56,7 @@ public class PlayerCheckCommand implements CommandExecutor {
         String prefix = "§8[§aLifeFFACore§8] ";
 
         player.sendMessage( prefix + "§f現在LifeFFA内に §e" + checkPlayerNum() + "§b人 §fのプレイヤーがいます");
-
         return true;
+
     }
 }

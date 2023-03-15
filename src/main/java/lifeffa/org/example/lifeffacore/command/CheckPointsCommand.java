@@ -22,7 +22,7 @@ public class CheckPointsCommand implements CommandExecutor {
         KillData data = PlayerKillListener.map.computeIfAbsent(Objects.requireNonNull(player).getUniqueId(), k -> new KillData());
 
         sender.sendMessage(prefix + "§f現在の所持ポイント§8:§e " + data.points);
-
         return true;
+
     }
 }
